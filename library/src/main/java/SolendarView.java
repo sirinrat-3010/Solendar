@@ -3,7 +3,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -11,7 +10,7 @@ import android.view.View;
 import android.widget.OverScroller;
 
 import com.tl.calendar.app.CalendarDayEvent;
-import com.tl.calendar.app.solendar.SolendarController;
+import com.tl.calendar.app.SolendarController;
 
 import java.util.Date;
 import java.util.List;

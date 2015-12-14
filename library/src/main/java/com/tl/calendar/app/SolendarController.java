@@ -25,7 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 
 
-class SolendarController {
+public class SolendarController {
 
     private int paddingWidth = 40;
     private int paddingHeight = 40;
@@ -68,7 +68,7 @@ class SolendarController {
         NONE, HORIZONTAL, VERTICAL
     }
 
-    SolendarController(Paint dayPaint, OverScroller scroller, Rect rect, AttributeSet attrs,
+    public SolendarController(Paint dayPaint, OverScroller scroller, Rect rect, AttributeSet attrs,
                               Context context, int currentDayBackgroundColor, int calenderTextColor, int currentSelectedDayBackgroundColor) {
         this.dayPaint = dayPaint;
         this.scroller = scroller;
@@ -139,11 +139,11 @@ class SolendarController {
         calendarWithFirstDayOfMonth.set(Calendar.MILLISECOND, 0);
     }
 
-    void removeAllEvents(){
+    public void removeAllEvents(){
         events.clear();
     }
 
-    void setShouldShowMondayAsFirstDay(boolean shouldShowMondayAsFirstDay) {
+    public void setShouldShowMondayAsFirstDay(boolean shouldShowMondayAsFirstDay) {
         this.shouldShowMondayAsFirstDay = shouldShowMondayAsFirstDay;
         setUseWeekDayAbbreviation(useThreeLetterAbbreviation);
         if (shouldShowMondayAsFirstDay) {
@@ -153,32 +153,32 @@ class SolendarController {
         }
     }
 
-    void setCurrentSelectedDayBackgroundColor(int currentSelectedDayBackgroundColor) {
+    public void setCurrentSelectedDayBackgroundColor(int currentSelectedDayBackgroundColor) {
         this.currentSelectedDayBackgroundColor = currentSelectedDayBackgroundColor;
     }
 
-    void setCurrentDayBackgroundColor(int currentDayBackgroundColor) {
+    public void setCurrentDayBackgroundColor(int currentDayBackgroundColor) {
         this.currentDayBackgroundColor = currentDayBackgroundColor;
     }
 
-    void showNextMonth() {
+    public void showNextMonth() {
         setCalenderToFirstDayOfMonth(calendarWithFirstDayOfMonth, currentCalender.getTime(), 0, 1);
         setCurrentDate(calendarWithFirstDayOfMonth.getTime());
     }
 
-    void showPreviousMonth() {
+    public void showPreviousMonth() {
         setCalenderToFirstDayOfMonth(calendarWithFirstDayOfMonth, currentCalender.getTime(), 0, -1);
         setCurrentDate(calendarWithFirstDayOfMonth.getTime());
     }
 
-    void setLocale(Locale locale) {
+    public void setLocale(Locale locale) {
         if (locale == null) {
             throw new IllegalArgumentException("Locale cannot be null");
         }
         this.locale = locale;
     }
 
-    void setUseWeekDayAbbreviation(boolean useThreeLetterAbbreviation) {
+    public void setUseWeekDayAbbreviation(boolean useThreeLetterAbbreviation) {
         this.useThreeLetterAbbreviation = useThreeLetterAbbreviation;
         DateFormatSymbols dateFormatSymbols = new DateFormatSymbols(locale);
         String[] dayNames = dateFormatSymbols.getShortWeekdays();
@@ -207,7 +207,7 @@ class SolendarController {
         }
     }
 
-    void setDayColumnNames(String[] dayColumnNames) {
+    public void setDayColumnNames(String[] dayColumnNames) {
         if (dayColumnNames == null || dayColumnNames.length != 7) {
             throw new IllegalArgumentException("Column names cannot be null and must contain a value for each day of the week");
         }
@@ -215,15 +215,15 @@ class SolendarController {
     }
 
 
-    void setShouldDrawDaysHeader(boolean shouldDrawDaysHeader) {
+    public void setShouldDrawDaysHeader(boolean shouldDrawDaysHeader) {
         this.shouldDrawDaysHeader = shouldDrawDaysHeader;
     }
 
-    void showSmallIndicator(boolean showSmallIndicator) {
+    public void showSmallIndicator(boolean showSmallIndicator) {
         this.showSmallIndicator = showSmallIndicator;
     }
 
-    void onMeasure(int width, int height, int paddingRight, int paddingLeft) {
+    public void onMeasure(int width, int height, int paddingRight, int paddingLeft) {
         widthPerDay = (width) / DAYS_IN_WEEK;
         heightPerDay = height / 7;
         this.width = width;
@@ -232,7 +232,7 @@ class SolendarController {
         this.paddingLeft = paddingLeft;
     }
 
-    void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas) {
         paddingWidth = widthPerDay / 2;
         paddingHeight = heightPerDay / 2;
         calculateXPositionOffset();
@@ -242,7 +242,7 @@ class SolendarController {
         drawScrollableCalender(canvas);
     }
 
-    boolean onTouch(MotionEvent event) {
+    public boolean onTouch(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (currentDirection == Direction.HORIZONTAL) {
                 monthsScrolledSoFar = Math.round(accumulatedScrollOffset.x / width);
@@ -262,17 +262,17 @@ class SolendarController {
         return false;
     }
 
-    int getHeightPerDay() {
+    public int getHeightPerDay() {
         return heightPerDay;
     }
 
-    int getWeekNumberForCurrentMonth() {
+    public int getWeekNumberForCurrentMonth() {
         Calendar calendar = Calendar.getInstance(locale);
         calendar.setTime(currentDate);
         return calendar.get(Calendar.WEEK_OF_MONTH);
     }
 
-    Date getFirstDayOfCurrentMonth() {
+    public Date getFirstDayOfCurrentMonth() {
         Calendar calendar = Calendar.getInstance(locale);
         calendar.setTime(currentDate);
         calendar.add(Calendar.MONTH, -monthsScrolledSoFar);
@@ -281,7 +281,7 @@ class SolendarController {
         return calendar.getTime();
     }
 
-    void setCurrentDate(Date dateTimeMonth) {
+    public void setCurrentDate(Date dateTimeMonth) {
         distanceX = 0;
         monthsScrolledSoFar = 0;
         accumulatedScrollOffset.x = 0;
@@ -298,7 +298,7 @@ class SolendarController {
         calendar.set(Calendar.MILLISECOND, 0);
     }
 
-    void addEvent(CalendarDayEvent event) {
+    public void addEvent(CalendarDayEvent event) {
         eventsCalendar.setTimeInMillis(event.getTimeInMillis());
         String key = getKeyForCalendarEvent(eventsCalendar);
         List<CalendarDayEvent> uniqCalendarDayEvents = events.get(key);
@@ -311,14 +311,14 @@ class SolendarController {
         events.put(key, uniqCalendarDayEvents);
     }
 
-    void addEvents(List<CalendarDayEvent> events) {
+    public void addEvents(List<CalendarDayEvent> events) {
         int count = events.size();
         for (int i = 0; i < count; i++) {
             addEvent(events.get(i));
         }
     }
 
-    void removeEvent(CalendarDayEvent event) {
+    public void removeEvent(CalendarDayEvent event) {
         eventsCalendar.setTimeInMillis(event.getTimeInMillis());
         String key = getKeyForCalendarEvent(eventsCalendar);
         List<CalendarDayEvent> uniqCalendarDayEvents = events.get(key);
@@ -350,7 +350,7 @@ class SolendarController {
         return cal.get(Calendar.YEAR) + "_" + cal.get(Calendar.MONTH);
     }
 
-    Date onSingleTapConfirmed(MotionEvent e) {
+    public Date onSingleTapConfirmed(MotionEvent e) {
         monthsScrolledSoFar = Math.round(accumulatedScrollOffset.x / width);
         int dayColumn = Math.round((paddingLeft + e.getX() - paddingWidth - paddingRight) / widthPerDay);
         int dayRow = Math.round((e.getY() - paddingHeight) / heightPerDay);
@@ -373,7 +373,7 @@ class SolendarController {
         }
     }
 
-    boolean onDown(MotionEvent e) {
+    public boolean onDown(MotionEvent e) {
         scroller.forceFinished(true);
         return true;
     }
@@ -396,7 +396,7 @@ class SolendarController {
         return true;
     }
 
-    boolean computeScroll() {
+    public boolean computeScroll() {
         if (scroller.computeScrollOffset()) {
             accumulatedScrollOffset.x = scroller.getCurrX();
             return true;

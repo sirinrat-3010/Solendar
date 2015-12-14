@@ -1,9 +1,7 @@
 package com.tl.calendar.app.solendar;
 
-import android.app.ActionBar;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,10 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.tl.calendar.app.CalendarDayEvent;
 
+import java.nio.DoubleBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,17 +34,25 @@ public class MainActivity extends AppCompatActivity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
+    private GoogleApiClient client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     private Bundle savedInstanceState;
+    private  AppIndex;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate() {
+        onCreate();
+    }
+
+    /**
+     * @param savedInstanceState
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         this.savedInstanceState = savedInstanceState;
         super.onCreate(savedInstanceState);
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -57,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
-        Action viewAction = Action.newAction(
+        Action viewAction;
+        viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
                 "Main Page", // TODO: Define a title for the content shown.
                 // TODO: If you have web page content that matches this app activity's content,
@@ -138,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDayClick(Date dateClicked) {
-                List<Booking> bookingsFromMap = bookings.get(dateClicked);
+                List<Booking> bookingsFromMap;
+                bookingsFromMap = bookingsFromMap.get(dateClicked);
                 Log.d("MainActivity", "inside onclick " + dateClicked);
                 if (bookingsFromMap != null) {
                     Log.d("MainActivity", bookingsFromMap.toString());
@@ -152,7 +159,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
-                actionBar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+                String dateFormatForMonth = null;
+                actionBar.setTitle(dateFormatForMonth.format(String.valueOf(firstDayOfNewMonth)));
             }
         });
         showPreviousMonthBut.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +188,9 @@ public class MainActivity extends AppCompatActivity {
             currentCalender.add(Calendar.DATE, i);
             setToMidnight(currentCalender);
             solendarView.addEvent(new CalendarDayEvent(currentCalender.getTimeInMillis(), Color.argb(255, 169, 68, 65)), false);
-            bookings.put(currentCalender.getTime(), createBookings());
+            DoubleBuffer bookings = null;
+            assert bookings != null;
+            final DoubleBuffer put = bookings.put(currentCalender.getTime(), createBookings());
         }
     }
     private List<Booking> createBookings() {
@@ -196,15 +206,17 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.MILLISECOND, 0);
 
         @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
+        public boolean onCreateOptionsMenu(Menu Menu menu;
+        menu) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
             return true;
         }
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            int id = item.getItemId();
-            if (id == R.id.action_settings) {
+        public boolean onOptionsItemSelected(MenuItem MenuItem item;
+        item) {
+        android.view.MenuItem item;
+        int id = item.getItemId();
+            if (R.id.action_settings) {
                 return true;
             }
 
