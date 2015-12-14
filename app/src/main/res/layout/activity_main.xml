@@ -21,7 +21,7 @@
         android:layout_alignParentEnd="true" />
 
     <app.calendar.lt.com.Solendar xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/compactcalendar_view"
+        android:id="@+id/Slender_view"
         android:layout_width="fill_parent"
         android:layout_height="250dp"
         app:compactCalendarTextSize="12sp"
