@@ -12,7 +12,7 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.widget.OverScroller;
 
-import com.github.sundeepk.compactcalendarview.domain.CalendarDayEvent;
+import com.tl.calendar.app.library.R;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ class SolendarController {
         NONE, HORIZONTAL, VERTICAL
     }
 
-    CompactCalendarController(Paint dayPaint, OverScroller scroller, Rect rect, AttributeSet attrs,
+    SolendarController(Paint dayPaint, OverScroller scroller, Rect rect, AttributeSet attrs,
                               Context context, int currentDayBackgroundColor, int calenderTextColor, int currentSelectedDayBackgroundColor) {
         this.dayPaint = dayPaint;
         this.scroller = scroller;

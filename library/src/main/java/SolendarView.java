@@ -10,6 +10,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.OverScroller;
 
+import com.tl.calendar.app.CalendarDayEvent;
+import com.tl.calendar.app.solendar.SolendarController;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -51,14 +54,14 @@ public class SolendarView extends View{
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            solendarController.onFling(e1, e2, velocityX, velocityY);
+            gestureListener.onFling(e1, e2, velocityX, velocityY);
             return true;
         }
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             if(shouldScroll) {
-                solendarController.onScroll(e1, e2, distanceX, distanceY);
+                gestureListener.onScroll(e1, e2, distanceX, distanceY);
                 invalidate();
             }
             return true;
@@ -136,45 +139,38 @@ public class SolendarView extends View{
 
 
     @Deprecated
-    public void addEvent(SolendarDayEvent event){
+    public void addEvent(CalendarDayEvent event){
         addEvent(event, false);
     }
 
 
-    public void addEvent(SolendarDayEvet event, boolean shouldInvalidate){
+    public void addEvent(CalendarDayEvent event, boolean shouldInvalidate){
         solendarController.addEvent(event);
         if(shouldInvalidate){
             invalidate();
         }
     }
 
-    public void addEvents(List<SolendarDayEvent> events){
+    public void addEvents(List<CalendarDayEvent> events){
         solendarController.addEvents(events);
         invalidate();
     }
 
 
     @Deprecated
-    public void removeEvent(SolendarDayEvent event){
+    public void removeEvent(CalendarDayEvent event){
         removeEvent(event, false);
     }
 
-    /**
-     * Removes an event from the calendar.
-     * If removing multiple events see {@link #removeEvents(List)}
-     *
-     * @param event event to remove from the calendar
-     * @param shouldInvalidate true if the view should invalidate
-     */
-    public void removeEvent(SolendarDayEvent event, boolean shouldInvalidate){
-        solendarControllerr.removeEvent(event);
+    public void removeEvent(CalendarDayEvent event, boolean shouldInvalidate){
+        solendarController.removeEvent(event);
         if(shouldInvalidate){
             invalidate();
         }
     }
 
-    public void removeEvents(List<SolendarDayEvent> events){
-        solendarController.removeEvents(events);
+    public void removeEvents(List<CalendarDayEvent> events){
+        solendarController.removeEvent((CalendarDayEvent) events);
         invalidate();
     }
 
